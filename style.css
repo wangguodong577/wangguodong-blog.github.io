@@ -49,6 +49,8 @@ a {
 a:hover {
 }
 
+li{float:left;}
+
 #wrapper {
 	margin: 0 auto;
 	padding: 0;
@@ -65,8 +67,6 @@ a:hover {
 	margin: 0 auto;
 	padding: 0px 0px 0px 30px;
 }
-
-/* Logo */
 
 #logo {
 	margin: 0;
