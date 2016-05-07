@@ -45,15 +45,10 @@ a {
 
 .btn {
 	display: inline-block;
-	margin-top: 100px; 
-	font-size: 1.2em;
-	font-weight: 700;
+	margin-top: 10px;
+	font-size: 1.5em;
+	font-weight: 100;
 	padding: 0.1em 0.8em;
-	text-align: center;
-	-webkit-transform: rotate(20deg);
-	-moz-transform: rotate(20deg);
-	transform: rotate(20deg);
-	font-family: "Indie Flower", serif;
 	-webkit-transition: color 0.3s;
 	-moz-transition: color 0.3s;
 	transition: color 0.3s;
@@ -182,24 +177,6 @@ Table of Contents
 	transform: rotateY(-29deg);
 }
 
-.ruled_paper li:nth-child(3) {
-	-webkit-transform: rotateY(-31deg);
-	-moz-transform: rotateY(-31deg);
-	transform: rotateY(-31deg);
-}
-
-.ruled_paper li:nth-child(4) {
-	-webkit-transform: rotateY(-33deg);
-	-moz-transform: rotateY(-33deg);
-	transform: rotateY(-33deg);
-}
-
-.ruled_paper li:nth-child(5) {
-	-webkit-transform: rotateY(-35deg);
-	-moz-transform: rotateY(-35deg);
-	transform: rotateY(-35deg);
-}
-
 /*
 	4. position, transform y transition
 */
@@ -289,32 +266,14 @@ Table of Contents
 	transition-duration: 0.6s;
 }
 
-.ruled_paper li:nth-child(3) {
-	-webkit-transition-duration: 0.4s;
-	-moz-transition-duration: 0.4s;
-	transition-duration: 0.4s;
-}
-
-.ruled_paper li:nth-child(4) {
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	transition-duration: 0.5s;
-}
-
-.ruled_paper li:nth-child(5) {
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	transition-duration: 0.5s;
-}
-
 /*
 	5. events
 */
 
 .book:hover > .paperback_front {
-	-webkit-transform: rotateY(-125deg) translateZ(0px);
-	-moz-transform: rotateY(-125deg) translateZ(0px);
-	transform: rotateY(-125deg) translateZ(0px);
+	-webkit-transform: rotateY(-120deg) translateZ(0px);
+	-moz-transform: rotateY(-120deg) translateZ(0px);
+	transform: rotateY(-120deg) translateZ(0px);
 	z-index: 0;
 }
 
@@ -327,40 +286,14 @@ Table of Contents
 	transition-duration: 1.5s;
 }
 
-.book:hover > .ruled_paper li:nth-child(2) {
-	-webkit-transform: rotateY(-35deg);
-	-moz-transform: rotateY(-35deg);
-	transform: rotateY(-35deg);
+
+.book:hover > .ruled_paper li:nth-child(2){
+	-webkit-transform: rotateY(-100deg);
+	-moz-transform: rotateY(-100deg);
+	transform: rotateY(-100deg);
 	-webkit-transition-duration: 1.8s;
 	-moz-transition-duration: 1.8s;
 	transition-duration: 1.8s;
-}
-
-.book:hover > .ruled_paper li:nth-child(3) {
-	-webkit-transform: rotateY(-110deg);
-	-moz-transform: rotateY(-110deg);
-	transform: rotateY(-110deg);
-	-webkit-transition-duration: 2.2s;
-	-moz-transition-duration: 2.2s;
-	transition-duration: 2.2s;
-}
-
-.book:hover > .ruled_paper li:nth-child(4) {
-	-webkit-transform: rotateY(-115deg);
-	-moz-transform: rotateY(-115deg);
-	transform: rotateY(-115deg);
-	-webkit-transition-duration: 1.8s;
-	-moz-transition-duration: 1.8s;
-	transition-duration: 1.8s;
-}
-
-.book:hover > .ruled_paper li:nth-child(5) {
-	-webkit-transform: rotateY(-120deg);
-	-moz-transform: rotateY(-120deg);
-	transform: rotateY(-120deg);
-	-webkit-transition-duration: 1.2s;
-	-moz-transition-duration: 1.2s;
-	transition-duration: 1.2s;
 }
 
 /* Cover colors */
