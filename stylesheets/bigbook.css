@@ -99,13 +99,12 @@ Table of Contents
 */
 
 .container {
-	margin: 80px;
 }
 
 .book {
 	position: relative;
 	width: 300px;
-	height: 800px;
+	height: 500px;
 	-webkit-perspective: 1000px;
 	-moz-perspective: 1000px;
 	perspective: 1000px;
