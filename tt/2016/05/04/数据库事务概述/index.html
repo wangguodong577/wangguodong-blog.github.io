@@ -1,0 +1,882 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/tt/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/tt/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/uploads/favicon-book.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="数据库事务概述事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID 原子性，隔离性，一致性和持久性，缺一不可）。
+原子性(Atomictity) ：即事务是不可分割的最小工作单元，事务内的操作要么全做，要么全不做。
+一致性(Consistency) ：在事务执行前数据库的数据处于正确的状态，而事务执行完成后数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库事务概述">
+<meta property="og:url" content="http://yoursite.com/2016/05/04/数据库事务概述/index.html">
+<meta property="og:site_name" content="石頭剪刀b">
+<meta property="og:description" content="数据库事务概述事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID 原子性，隔离性，一致性和持久性，缺一不可）。
+原子性(Atomictity) ：即事务是不可分割的最小工作单元，事务内的操作要么全做，要么全不做。
+一致性(Consistency) ：在事务执行前数据库的数据处于正确的状态，而事务执行完成后数据">
+<meta property="og:updated_time" content="2016-05-04T14:22:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库事务概述">
+<meta name="twitter:description" content="数据库事务概述事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID 原子性，隔离性，一致性和持久性，缺一不可）。
+原子性(Atomictity) ：即事务是不可分割的最小工作单元，事务内的操作要么全做，要么全不做。
+一致性(Consistency) ：在事务执行前数据库的数据处于正确的状态，而事务执行完成后数据">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 数据库事务概述 | 石頭剪刀b </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-77241258-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?baidu_analytics";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">石頭剪刀b</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-heartbeat fa-fw"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'Jfx3ygVq1psFuLGr4m7p','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据库事务概述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-04T22:22:08+08:00" content="2016-05-04">
+              2016-05-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/04/数据库事务概述/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/04/数据库事务概述/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="数据库事务概述"><a href="#数据库事务概述" class="headerlink" title="数据库事务概述"></a>数据库事务概述</h2><h6 id="事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID-原子性，隔离性，一致性和持久性，缺一不可）。"><a href="#事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID-原子性，隔离性，一致性和持久性，缺一不可）。" class="headerlink" title="事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID 原子性，隔离性，一致性和持久性，缺一不可）。"></a>事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID <em>原子性，隔离性，一致性和持久性</em>，缺一不可）。</h6><ul>
+<li><strong>原子性(Atomictity)</strong> ：即事务是不可分割的最小工作单元，事务内的操作要么全做，要么全不做。</li>
+<li><strong>一致性(Consistency)</strong> ：在事务执行前数据库的数据处于正确的状态，而事务执行完成后数据库的数据还是处于正确的状态，即数据完成性约束没有被破坏；如银行转账。</li>
+<li><strong>隔离性(Isolation)</strong> ：并发事务执行之间无影响，在一个事务内部的操作对其他事务是不产生影响的，这需要事务隔离级别来指定隔离性。</li>
+<li><strong>持久性(Durability)</strong> ：事务一旦执行成功，它对数据库的数据的改变必须是永久的，不会因比如遇到系统故障或断电造成数据丢失。</li>
+</ul>
+<h6 id="在实际项目开发中数据库的操作一般都是并发执行的，即有多个事务并发执行，并发执行就可能遇到问题，目前常见的问题如下："><a href="#在实际项目开发中数据库的操作一般都是并发执行的，即有多个事务并发执行，并发执行就可能遇到问题，目前常见的问题如下：" class="headerlink" title="在实际项目开发中数据库的操作一般都是并发执行的，即有多个事务并发执行，并发执行就可能遇到问题，目前常见的问题如下："></a>在实际项目开发中数据库的操作一般都是并发执行的，即有多个事务并发执行，并发执行就可能遇到问题，目前常见的问题如下：</h6><a id="more"></a>
+<ul>
+<li><p>丢失更新：两个事务同事更新一行数据，最后一个事务的更新会覆盖掉第一个事务的更新，从而导致第一个事务更新的数据丢失，这是由于没有加锁造成的；</p>
+</li>
+<li><p>脏读：一个事务看到了另一个事务未提交的更新数据；</p>
+</li>
+<li><p>不可重复读：在同一事务中，多次读取的同一数据返回的结果不同；也就是有其他的事务更改了这些数据；</p>
+</li>
+<li><p>幻读：一个事务在执行过程中读取到了另一个事务已经提交的数据；即在第一个事务开始的时候读取到一批数据，但此后另一个事务又插入了新的数据并提交，此时第一个事务又读取这批数据但发现多了一些数据，即好像发生幻觉一样；</p>
+<h6 id="为了解决这些并发问题，需要通过数据库隔离级别来解决，在标准的SQL规范中定义了四种隔离级别："><a href="#为了解决这些并发问题，需要通过数据库隔离级别来解决，在标准的SQL规范中定义了四种隔离级别：" class="headerlink" title="为了解决这些并发问题，需要通过数据库隔离级别来解决，在标准的SQL规范中定义了四种隔离级别："></a>为了解决这些并发问题，需要通过数据库隔离级别来解决，在标准的SQL规范中定义了四种隔离级别：</h6></li>
+<li><p><strong>未提交读（Read Uncommitten）</strong>：最低隔离级别，一个事务能读取到别的事务未提交的更新数据，很不安全，可能出现丢失更新，脏读，不可重复读，幻读；</p>
+</li>
+<li><p><strong>提交读（Read Committed）</strong>：一个事务能读取到别的事务提交的更新数据，不能看到未提交的更新数据，不可能出现丢失更新，脏读，但可能出现不可重复读和幻读；</p>
+</li>
+<li><p><strong>可重复读（Repeatable Read）</strong>：保证同意事务中先后执行的多次查询将返回同一结果，不受其他事务影响，不可能出现丢失更新，脏读，不可重复读，但可能出现幻读；</p>
+</li>
+<li><p><strong>可串行化（Serializable）</strong>：最高隔离级别，不允许事务并发执行，而必须串行化执行，最安全，不可能出现丢失更新，脏读，不可重复读，幻读；</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读（Dirty Read）</th>
+<th>不可重复读（NonRepeatable Read）</th>
+<th>幻读（Phantom Read）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>未提交读（Read Uncommitten）</td>
+<td>可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>提交读（Read Committed）</td>
+<td>不可能</td>
+<td>可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可重复读（Repeatable Read）</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>可能</td>
+</tr>
+<tr>
+<td>可串行化（Serializable）</td>
+<td>不可能</td>
+<td>不可能</td>
+<td>不可能</td>
+</tr>
+</tbody>
+</table>
+<p><em>按照SQL:1992 事务隔离级别，InnoDB默认是可重复读的（REPEATABLE READ）。MySQL/InnoDB 提供SQL标准所描述的所有四个事务隔离级别。你可以在命令行用–transaction-isolation选项，或在选项文件里，为所有连接设置默认隔离级别。例如，你可以在my.inf文件的[mysqld]节里类似如下设置该选项：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">transaction-isolation = &#123;READ-UNCOMMITTED | READ-COMMITTED | REPEATABLE-READ | SERIALIZABLE&#125;</span><br></pre></td></tr></table></figure>
+<p><em>用户可以用SET TRANSACTION语句改变单个会话或者所有新进连接的隔离级别。它的语法如下：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET [SESSION | GLOBAL] TRANSACTION ISOLATION LEVEL &#123;READ UNCOMMITTED | READ COMMITTED | REPEATABLE READ | SERIALIZABLE&#125;</span><br></pre></td></tr></table></figure>
+<p><em>注意：默认的行为（不带session和global）是为下一个（未开始）事务设置隔离级别。如果你使用GLOBAL关键字，语句在全局对从那点开始创建的所有新连接（除了不存在的连接）设置默认事务级别。你需要SUPER权限来做这个。使用SESSION 关键字为将来在当前连接上执行的事务设置默认事务级别。 任何客户端都能自由改变会话隔离级别（甚至在事务的中间），或者为下一个事务设置隔离级别。 你可以用下列语句查询全局和会话事务隔离级别：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@global.tx_isolation;</span><br><span class="line">SELECT @@session.tx_isolation;</span><br><span class="line">SELECT @@tx_isolation;</span><br></pre></td></tr></table></figure>
+<h6 id="隔离级别越高，数据库事务并发执行性能越差，能处理的操作越少。因此在实际项目开发中为了考虑并发性能一般使用提交读隔离级别，它能避免丢失更新和脏读，尽管不可重复读和幻读不能避免，但可以在可能出现的场合使用悲观锁或乐观锁来解决这些问题。"><a href="#隔离级别越高，数据库事务并发执行性能越差，能处理的操作越少。因此在实际项目开发中为了考虑并发性能一般使用提交读隔离级别，它能避免丢失更新和脏读，尽管不可重复读和幻读不能避免，但可以在可能出现的场合使用悲观锁或乐观锁来解决这些问题。" class="headerlink" title="隔离级别越高，数据库事务并发执行性能越差，能处理的操作越少。因此在实际项目开发中为了考虑并发性能一般使用提交读隔离级别，它能避免丢失更新和脏读，尽管不可重复读和幻读不能避免，但可以在可能出现的场合使用悲观锁或乐观锁来解决这些问题。"></a>隔离级别越高，数据库事务并发执行性能越差，能处理的操作越少。因此在实际项目开发中为了考虑并发性能一般使用<strong>提交读</strong>隔离级别，它能避免丢失更新和脏读，尽管不可重复读和幻读不能避免，但可以在可能出现的场合使用<strong>悲观锁或乐观锁</strong>来解决这些问题。</h6><h5 id="事务类型"><a href="#事务类型" class="headerlink" title="事务类型"></a>事务类型</h5><h6 id="数据库事务类型有本地事务和分布式事务："><a href="#数据库事务类型有本地事务和分布式事务：" class="headerlink" title="数据库事务类型有本地事务和分布式事务："></a>数据库事务类型有本地事务和分布式事务：</h6><ul>
+<li>本地事务：就是普通事务，能保证单台数据库上的操作的ACID，被限定在一台数据库上；</li>
+<li>分布式事务：涉及两个或多个数据库源的事务，即跨越多台同类或异类数据库的事务（由每台数据库的本地事务组成的），分布式事务旨在保证这些本地事务的所有操作的ACID，使事务可以跨越多台数据库；</li>
+</ul>
+<h6 id="Java事务类型有JDBC事务和JTA事务："><a href="#Java事务类型有JDBC事务和JTA事务：" class="headerlink" title="Java事务类型有JDBC事务和JTA事务："></a>Java事务类型有JDBC事务和JTA事务：</h6><ul>
+<li>JDBC事务：就是数据库事务类型中的本地事务，通过Connection对象的控制来管理事务；</li>
+<li>JTA事务：JTA指Java事务API(Java Transaction API)，是Java EE数据库事务规范， JTA只提供了事务管理接口，由应用程序服务器厂商（如WebSphere Application Server）提供实现，JTA事务比JDBC更强大，支持分布式事务。</li>
+</ul>
+<h6 id="Java-EE事务类型有本地事务和全局事务："><a href="#Java-EE事务类型有本地事务和全局事务：" class="headerlink" title="Java EE事务类型有本地事务和全局事务："></a>Java EE事务类型有本地事务和全局事务：</h6><ul>
+<li>本地事务：使用JDBC编程实现事务；</li>
+<li>全局事务：由应用程序服务器提供，使用JTA事务；</li>
+</ul>
+<h6 id="按是否通过编程实现事务有声明式事务和编程式事务；"><a href="#按是否通过编程实现事务有声明式事务和编程式事务；" class="headerlink" title="按是否通过编程实现事务有声明式事务和编程式事务；"></a>按是否通过编程实现事务有声明式事务和编程式事务；</h6><ul>
+<li>声明式事务： 通过注解或XML配置文件指定事务信息；</li>
+<li>编程式事务：通过编写代码实现事务。</li>
+</ul>
+<h5 id="Spring事务管理"><a href="#Spring事务管理" class="headerlink" title="Spring事务管理"></a>Spring事务管理</h5><h6 id="Spring框架最核心功能之一就是事务管理，而且提供一致的事务管理抽象，这能帮助我们："><a href="#Spring框架最核心功能之一就是事务管理，而且提供一致的事务管理抽象，这能帮助我们：" class="headerlink" title="Spring框架最核心功能之一就是事务管理，而且提供一致的事务管理抽象，这能帮助我们："></a>Spring框架最核心功能之一就是事务管理，而且提供一致的事务管理抽象，这能帮助我们：</h6><ul>
+<li>提供一致的编程式事务管理API，不管使用Spring JDBC框架还是集成第三方框架使用该API进行事务编程；</li>
+<li>无侵入式的声明式事务支持。</li>
+<li>Spring支持声明式事务和编程式事务事务类型。</li>
+</ul>
+
+      
+    </div>
+    
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block； padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/weixin.jpg" alt="bowen wechat" style="width: 200px; max-width: 100%;"/>
+    <div>欢迎您扫一扫上面的微信公众号，订阅我的博客！</div>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag">#mysql</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/03/git常用命令/" rel="next" title="git常用命令">
+                <i class="fa fa-chevron-left"></i> git常用命令
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/05/04/数据库事务概述/"
+     data-title="数据库事务概述"
+     data-content=""
+     data-url="http://yoursite.com/2016/05/04/数据库事务概述/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/04/数据库事务概述/"
+           data-title="数据库事务概述" data-url="http://yoursite.com/2016/05/04/数据库事务概述/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="bowen" />
+          <p class="site-author-name" itemprop="name">bowen</p>
+          <p class="site-description motion-element" itemprop="description">但行好事，莫问前程。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/challengeof" target="_blank" title="github">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/challengeof1" target="_blank" title="twitter">
+                  
+                    <i class="fa fa-twitter"></i>
+                  
+                  twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/challengeof" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-zhihu"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2480658491" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://douban.com/people/70619542" target="_blank" title="douban">
+                  
+                    <i class="fa fa-douban"></i>
+                  
+                  douban
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库事务概述"><span class="nav-number">1.</span> <span class="nav-text">数据库事务概述</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID-原子性，隔离性，一致性和持久性，缺一不可）。"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">事务首先是一系列操作组成的工作单元，该工作单元内的操作是不可分割的，即要么所有操作都做，要么所有操作都不做，这就是事务（事务必选满足ACID 原子性，隔离性，一致性和持久性，缺一不可）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在实际项目开发中数据库的操作一般都是并发执行的，即有多个事务并发执行，并发执行就可能遇到问题，目前常见的问题如下："><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">在实际项目开发中数据库的操作一般都是并发执行的，即有多个事务并发执行，并发执行就可能遇到问题，目前常见的问题如下：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#为了解决这些并发问题，需要通过数据库隔离级别来解决，在标准的SQL规范中定义了四种隔离级别："><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">为了解决这些并发问题，需要通过数据库隔离级别来解决，在标准的SQL规范中定义了四种隔离级别：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#隔离级别越高，数据库事务并发执行性能越差，能处理的操作越少。因此在实际项目开发中为了考虑并发性能一般使用提交读隔离级别，它能避免丢失更新和脏读，尽管不可重复读和幻读不能避免，但可以在可能出现的场合使用悲观锁或乐观锁来解决这些问题。"><span class="nav-number">1.0.0.0.4.</span> <span class="nav-text">隔离级别越高，数据库事务并发执行性能越差，能处理的操作越少。因此在实际项目开发中为了考虑并发性能一般使用提交读隔离级别，它能避免丢失更新和脏读，尽管不可重复读和幻读不能避免，但可以在可能出现的场合使用悲观锁或乐观锁来解决这些问题。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#事务类型"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">事务类型</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#数据库事务类型有本地事务和分布式事务："><span class="nav-number">1.0.0.1.1.</span> <span class="nav-text">数据库事务类型有本地事务和分布式事务：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Java事务类型有JDBC事务和JTA事务："><span class="nav-number">1.0.0.1.2.</span> <span class="nav-text">Java事务类型有JDBC事务和JTA事务：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Java-EE事务类型有本地事务和全局事务："><span class="nav-number">1.0.0.1.3.</span> <span class="nav-text">Java EE事务类型有本地事务和全局事务：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#按是否通过编程实现事务有声明式事务和编程式事务；"><span class="nav-number">1.0.0.1.4.</span> <span class="nav-text">按是否通过编程实现事务有声明式事务和编程式事务；</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Spring事务管理"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">Spring事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Spring框架最核心功能之一就是事务管理，而且提供一致的事务管理抽象，这能帮助我们："><span class="nav-number">1.0.0.2.1.</span> <span class="nav-text">Spring框架最核心功能之一就是事务管理，而且提供一致的事务管理抽象，这能帮助我们：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">石頭剪刀b</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/tt/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/tt/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/tt/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/tt/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/tt/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/tt/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"challenge"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
