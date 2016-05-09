@@ -98,6 +98,10 @@ Table of Contents
 	1. container
 */
 
+.container {
+	margin: 0 auto;
+}
+
 .book {
 	position: relative;
 	width: 300px;
