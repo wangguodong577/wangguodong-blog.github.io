@@ -20,9 +20,11 @@
 					</ul>
 				</div>
 				<div class="bb-custom-side-right">
-					<li>
-						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
-					</li>
+					<ul class="ruled_paper">
+						<li>
+							<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div class="bb-item">
@@ -39,12 +41,12 @@
 			</div>
 		</div>
 
-		<!--<nav>-->
-			<!--<a id="bb-nav-first"  href="#" class="bb-custom-icon bb-custom-icon-first">First page</a>-->
-			<!--<a id="bb-nav-prev"  href="#" class="bb-custom-icon bb-custom-icon-arrow-left">Previous</a>-->
-			<!--<a id="bb-nav-next"  href="#" class="bb-custom-icon bb-custom-icon-arrow-right">Next</a>-->
-			<!--<a id="bb-nav-last"  href="#" class="bb-custom-icon bb-custom-icon-last">Last page</a>-->
-		<!--</nav>-->
+		<nav>
+			<a id="bb-nav-first"  href="#" class="bb-custom-icon bb-custom-icon-first">First page</a>
+			<a id="bb-nav-prev"  href="#" class="bb-custom-icon bb-custom-icon-arrow-left">Previous</a>
+			<a id="bb-nav-next"  href="#" class="bb-custom-icon bb-custom-icon-arrow-right">Next</a>
+			<a id="bb-nav-last"  href="#" class="bb-custom-icon bb-custom-icon-last">Last page</a>
+		</nav>
 
 	</div>
 
@@ -62,7 +64,7 @@
 					$navNext : $( '#bb-nav-next' ),
 					$navPrev : $( '#bb-nav-prev' ),
 					$navFirst : $( '#bb-nav-first' ),
-					$navLast : $( '#bb-nav-last' )
+					$navLast : $( '#bb-nav-last' ),
 				},
 				init = function() {
 					config.$bookBlock.bookblock( {
@@ -77,22 +79,32 @@
 					var $slides = config.$bookBlock.children();
 
 					// add navigation events
-					config.$pageRight.on( 'dblclick touchstart', function() {
-						config.$bookBlock.bookblock( 'next' );
-						return false;
-					} );
-
 					config.$pageLeft.on( 'dblclick touchstart', function() {
 						config.$bookBlock.bookblock( 'prev' );
 						return false;
 					} );
 
 					config.$pageRight.on( 'dblclick touchstart', function() {
+						config.$bookBlock.bookblock( 'next' );
+						return false;
+					} );
+
+					config.$navNext.on( 'click touchstart', function() {
+						config.$bookBlock.bookblock( 'next' );
+						return false;
+					} );
+
+					config.$navPrev.on( 'click touchstart', function() {
+						config.$bookBlock.bookblock( 'prev' );
+						return false;
+					} );
+
+					config.$navFirst.on( 'click touchstart', function() {
 						config.$bookBlock.bookblock( 'first' );
 						return false;
 					} );
 
-					config.$navLast.on( 'dblclick touchstart', function() {
+					config.$navLast.on( 'click touchstart', function() {
 						config.$bookBlock.bookblock( 'last' );
 						return false;
 					} );
