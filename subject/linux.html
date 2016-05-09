@@ -1,38 +1,163 @@
-
 <!DOCTYPE html>
-<html lang="en" class=" js no-touch">
+<html lang="en" class="no-js demo-4">
 <head>
-	<link rel="stylesheet" type="text/css" href="../stylesheets/bigbook.css">
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" type="text/css" href="../css/default.css" />
+	<link rel="stylesheet" type="text/css" href="../css/bookblock.css" />
+	<link rel="stylesheet" type="text/css" href="../css/demo4.css" />
+	<script src="../js/modernizr.custom.js"></script>
 </head>
 <body>
-		<div class="container">
-			<div class="component">
-				<ul class="align">
+<div class="container">
+	<div class="bb-custom-wrapper">
+		<div id="bb-bookblock" class="bb-bookblock">
+			<div class="bb-item">
+				<div class="bb-custom-side">
+					<ul class="ruled_paper">
+						<li>
+							<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+						</li>
+					</ul>
+				</div>
+				<div class="bb-custom-side">
 					<li>
-						<figure class="book">
-
-							<ul class="paperback_front">
-								<li>
-									<span class="ribbon">linux</span>
-								</li>
-								<li></li>
-							</ul>
-
-							<ul class="ruled_paper">
-								<li>
-									<a class="btn" href="../article/mount.html">about mount. local&remote</a>
-								</li>
-								<li>
-								</li>
-							</ul>
-
-							<ul class="paperback_back">
-							</ul>
-						</figure>
+						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
 					</li>
-				</ul>
+				</div>
+			</div>
+			<div class="bb-item">
+				<div class="bb-custom-side">
+					<li>
+						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+					</li>
+				</div>
+				<div class="bb-custom-side">
+					<li>
+						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+					</li>
+				</div>
+			</div>
+			<div class="bb-item">
+				<div class="bb-custom-side">
+					<li>
+						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+					</li>
+				</div>
+				<div class="bb-custom-side">
+					<li>
+						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+					</li>
+				</div>
+			</div>
+			<div class="bb-item">
+				<div class="bb-custom-side">
+					<li>
+						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+					</li>
+				</div>
+				<div class="bb-custom-side">
+					<li>
+						<a class="btn" href="../article/mount.html">about mount. local&remote</a>
+					</li>
+				</div>
 			</div>
 		</div>
+
+		<nav>
+			<a id="bb-nav-first" href="#" class="bb-custom-icon bb-custom-icon-first">First page</a>
+			<a id="bb-nav-prev" href="#" class="bb-custom-icon bb-custom-icon-arrow-left">Previous</a>
+			<a id="bb-nav-next" href="#" class="bb-custom-icon bb-custom-icon-arrow-right">Next</a>
+			<a id="bb-nav-last" href="#" class="bb-custom-icon bb-custom-icon-last">Last page</a>
+		</nav>
+
+	</div>
+
+</div><!-- /container -->
+<script src="http://libs.useso.com/../js/jquery/1.9.1/jquery.min.js"></script>
+<script src="../js/jquerypp.custom.js"></script>
+<script src="../js/jquery.bookblock.js"></script>
+<script>
+	var Page = (function() {
+
+		var config = {
+					$bookBlock : $( '#bb-bookblock' ),
+					$navNext : $( '#bb-nav-next' ),
+					$navPrev : $( '#bb-nav-prev' ),
+					$navFirst : $( '#bb-nav-first' ),
+					$navLast : $( '#bb-nav-last' )
+				},
+				init = function() {
+					config.$bookBlock.bookblock( {
+						speed : 1000,
+						shadowSides : 0.8,
+						shadowFlip : 0.4
+					} );
+					initEvents();
+				},
+				initEvents = function() {
+
+					var $slides = config.$bookBlock.children();
+
+					// add navigation events
+					config.$navNext.on( 'click touchstart', function() {
+						config.$bookBlock.bookblock( 'next' );
+						return false;
+					} );
+
+					config.$navPrev.on( 'click touchstart', function() {
+						config.$bookBlock.bookblock( 'prev' );
+						return false;
+					} );
+
+					config.$navFirst.on( 'click touchstart', function() {
+						config.$bookBlock.bookblock( 'first' );
+						return false;
+					} );
+
+					config.$navLast.on( 'click touchstart', function() {
+						config.$bookBlock.bookblock( 'last' );
+						return false;
+					} );
+
+					// add swipe events
+					$slides.on( {
+						'swipeleft' : function( event ) {
+							config.$bookBlock.bookblock( 'next' );
+							return false;
+						},
+						'swiperight' : function( event ) {
+							config.$bookBlock.bookblock( 'prev' );
+							return false;
+						}
+					} );
+
+					// add keyboard events
+					$( document ).keydown( function(e) {
+						var keyCode = e.keyCode || e.which,
+								arrow = {
+									left : 37,
+									up : 38,
+									right : 39,
+									down : 40
+								};
+
+						switch (keyCode) {
+							case arrow.left:
+								config.$bookBlock.bookblock( 'prev' );
+								break;
+							case arrow.right:
+								config.$bookBlock.bookblock( 'next' );
+								break;
+						}
+					} );
+				};
+
+		return { init : init };
+
+	})();
+</script>
+<script>
+	Page.init();
+</script>
 </body>
 </html>
-
