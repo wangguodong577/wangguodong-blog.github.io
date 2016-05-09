@@ -23,7 +23,35 @@
 	perspective: 2000px;
 }
 
-.bb-custom-side {
+.bb-custom-side-left {
+	border-left: thin double rgba(136, 136, 136, 0.3);
+	background: #fff2e3;
+	width: 50%;
+	float: left;
+	height: 100%;
+	overflow: hidden;
+	/* Centering with flexbox */
+	display: -webkit-box;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-direction: row;
+	flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.bb-custom-side-right {
+	border-left: thin double rgba(136, 136, 136, 0.3);
+	background: #fff2e3;
 	width: 50%;
 	float: left;
 	height: 100%;
