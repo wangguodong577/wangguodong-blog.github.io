@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang='en'>
+<head>
+	<meta charset='utf-8'>
+	<link href="../stylesheets/main.css" rel="stylesheet" type="text/css" />
+	<title>Typora Writings</title>
+</head>
+<body>
+<h1>介绍linux mount相关内容</h1>
+
+<h2>fdisk</h2>
+
+<h3>fdisk -l</h3>
+
+<p><strong>List the partition tables for the specified devices and then exit.</strong></p>
+
+<h3>fdisk #device name</h3>
+
+<p><strong>Command (m for help): m</strong></p>
+
+<p><strong>Command action</strong></p>
+
+<p>   a   toggle a bootable flag</p>
+
+<p>   b   edit bsd disklabel</p>
+
+<p>   c   toggle the dos compatibility flag</p>
+
+<p>   d   delete a partition</p>
+
+<p>   l   list known partition types</p>
+
+<p>   m   print this menu</p>
+
+<p>   n   add a new partition</p>
+
+<p>   o   create a new empty DOS partition table</p>
+
+<p>   p   print the partition table</p>
+
+<p>   q   quit without saving changes</p>
+
+<p>   s   create a new empty Sun disklabel</p>
+
+<p>   t   change a partition's system id</p>
+
+<p>   u   change display/entry units</p>
+
+<p>   v   verify the partition table</p>
+
+<p>   w   write table to disk and exit</p>
+
+<p>   x   extra functionality (experts only)</p>
+
+<h3>mkfs</h3>
+
+<p><strong>e.g.</strong></p>
+
+<p>mkfs -t ext3 /dev/xvdc</p>
+
+<h3>mount</h3>
+
+<p><strong>e.g.</strong></p>
+
+<p>mount /dev/xvdc /mnt</p>
+
+<h3>fuser</h3>
+
+<p>When you can't execute the mount cammand successfully, try use fuser -m -v -i -k /mnt to kill the processes that use /mnt directory in interactive mode. Then try amount again.</p>
+
+<h2>NFS share</h2>
+
+<p>When you are doing NFS share on a Debian system, you should install the tools necessary. Lets assume that the client (the machine on which you want to mount the remote folder) and server (the machine where remote folder is)</p>
+
+<p><strong>On server you'll need to install:</strong></p>
+
+<p>apt-get install nfs-server portmap nfs-common</p>
+
+<p><strong>in new debian versions</strong></p>
+
+<p>apt-get install nfs-kernel-server portmap nfs-common</p>
+
+<p><strong>On the client you'll need to install:</strong></p>
+
+<p>apt-get install nfs-client nfs-common</p>
+
+<p><strong>Now what you need to do is put the folders you want to share with remote machine in /etc/exports:</strong></p>
+
+<p>/share/excel 139.129.15.29(insecure,rw,sync,no_subtree_check,no_root_squash)</p>
+
+<p>here the ip is eth1's ip</p>
+
+<p>Then:</p>
+
+<p>exportfs -ra</p>
+
+<p>/etc/init.d/nfs-kernel-server restart</p>
+
+<p>/etc/init.d/portmap restart</p>
+
+<p>Here 139.129.15.29 is the address of your local machine, replace that with your own IP. exports file has the list of machines that can access the shared folder. If your machines don't have firewall restrictions to each other (you can solve this by adding host to /etc/hosts.allow).</p>
+
+<p><strong>Now on your local machine you can use the command:</strong></p>
+
+<p>sudo mount -o soft,intr,rsize=8192,wsize=8192 server_ip:/path_to_tmp_folder/tmp /local_path_to_empty_tmp_folder/tmp</p>
+
+<p>If you want to have automatic mount on boot you need to edit your /etc/fstab file and put the line on your client:</p>
+
+<p>server_ip:/path_to_tmp/tmp /local_empty_folder/tmp nfs rsize=16384,wsize=16384,rw,auto,nolock</p>
+
+<p>This is just an example of settings (copy pased from my own), you need to check nfs help to see what suites you best.</p>
+<div class="post-spread">
+	<div class="ds-share flat" data-thread-key="2016/05/03/随笔/" data-url>
+		<div class="ds-share-inline">
+			<ul class="ds-share-icons-16">
+				<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+				<li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+				<li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+				<li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+				<li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+			</ul>
+			<div class="ds-share-icons-more">
+			</div>
+		</div>
+		<div class="comments" id="comments">
+			<div class="ds-thread" data-url>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript">
+	var duoshuoQuery = {short_name: "wangguodong577"};
+	(function () {
+		var dataUrl = this.location.href;
+		var dataThreadKey = dataUrl.substr(dataUrl.lastIndexOf("/") + 1);
+
+		$(".post-spread .ds-share").attr("data-thread-key", dataThreadKey);
+		$(".post-spread .ds-share").attr("data-url", dataUrl);
+
+		$(".comments .ds-thread").attr("data-thread-key", dataThreadKey);
+		$(".comments .ds-thread").attr("data-url", dataUrl);
+
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';
+		ds.async = true;
+		ds.id = 'duoshuo-script';
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0]
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
