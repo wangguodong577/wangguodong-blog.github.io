@@ -7,7 +7,7 @@
 	<title>王国栋的技术博客</title>
 	<meta name="description" content="王国栋的技术博客">
 	<meta name="keywords" content="王国栋">
-	<link rel="stylesheet" type="text/css" href="../stylesheets/bigbook.css?v=11">
+	<link rel="stylesheet" type="text/css" href="../stylesheets/bigbook.css?v=12">
 </head>
 <body>
 <div class="container">
@@ -50,22 +50,55 @@
 
 <script>
 	var pages = $(".ruled_paper li");
-	pages.each(function(){
+	pages.each(function(index){
 		$(this).addClass("book_un_flip");
+		var initDeg = 30 + (pages.size() - index) * 0.5;
+		$(this).css("-webkit-transform", "rotateY(-" + initDeg + "deg)");
+		$(this).css("-moz-transform", "rotateY(-" + initDeg + "deg)");
+		$(this).css("transform", "rotateY(-" + initDeg + "deg)");
+		$(this).css("-webkit-transition-duration", "1s");
+		$(this).css("-moz-transition-duration", "1s");
+		$(this).css("transition-duration", "1s");
 		$(this).bind("click", function() {
-			$(this).addClass("book_flip");
+			if ($(this).hasClass("book_flip")) {
+				$(this).removeClass("book_flip").addClass("book_un_flip");
+				$(this).css("-webkit-transform", "rotateY(-" + initDeg + "deg)");
+				$(this).css("-moz-transform", "rotateY(-" + initDeg + "deg)");
+				$(this).css("transform", "rotateY(-" + initDeg + "deg)");
+				$(this).css("-webkit-transition-duration", "1s");
+				$(this).css("-moz-transition-duration", "1s");
+				$(this).css("transition-duration", "1s");
+			} else {
+				var deg = 120 - index;
+				$(this).removeClass("book_un_flip").addClass("book_flip");
+				$(this).css("-webkit-transform", "rotateY(-" + deg + "deg)");
+				$(this).css("-moz-transform", "rotateY(-" + deg + "deg)");
+				$(this).css("transform", "rotateY(-" + deg + "deg)");
+				$(this).css("-webkit-transition-duration", "1s");
+				$(this).css("-moz-transition-duration", "1s");
+				$(this).css("transition-duration", "1s");
+			}
 		})
 	});
+
 	$(".paperback_front").addClass("book_closed");
 
-	$(".book").bind("mouseenter touchend",function() {
-		$(".paperback_front").removeClass("book_closed").addClass("book_opened");
-	});
-
-	$(".book").bind("mouseleave toucheleave",function() {
-		pages.each(function(){
-			$(this).removeClass("book_flip");
-		});
-		$(".paperback_front").removeClass("book_opened").addClass("book_closed");
-	});
+	$(".book_image").hover(
+			function() {
+				$(".paperback_front").removeClass("book_closed").addClass("book_opened");
+			},
+			function() {
+				pages.each(function(index){
+					var initDeg = 30 + (pages.size() - index) * 0.5;
+					$(this).removeClass("book_flip");
+					$(this).css("-webkit-transform", "rotateY(-" + initDeg + "deg)");
+					$(this).css("-moz-transform", "rotateY(-" + initDeg + "deg)");
+					$(this).css("transform", "rotateY(-" + initDeg + "deg)");
+					$(this).css("-webkit-transition-duration", "1s");
+					$(this).css("-moz-transition-duration", "1s");
+					$(this).css("transition-duration", "1s");
+				});
+				$(".paperback_front").removeClass("book_opened").addClass("book_closed");
+			}
+	);
 </script>

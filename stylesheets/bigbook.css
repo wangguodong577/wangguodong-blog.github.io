@@ -215,24 +215,6 @@ a {
 	z-index: 0;
 }
 
-.book_un_flip {
-	-webkit-transform: rotateY(-30deg) !important;
-	-moz-transform: rotateY(-30deg) !important;
-	transform: rotateY(-30deg) !important;
-	-webkit-transition-duration: 1.5s !important;
-	-moz-transition-duration: 1.5s !important;
-	transition-duration: 1.5s !important;
-}
-
-.book_flip {
-	-webkit-transform: rotateY(-115deg) !important;
-	-moz-transform: rotateY(-115deg) !important;
-	transform: rotateY(-115deg) !important;
-	-webkit-transition-duration: 1.5s !important;
-	-moz-transition-duration: 1.5s !important;
-	transition-duration: 1.5s !important;
-}
-
 /* Cover colors */
 .green {
 	background: #2ecc71;
