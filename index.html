@@ -67,16 +67,17 @@
 	});
 	$(".paperback_front").addClass("book_closed");
 
-	$(".book_image").bind("mouseenter touchend",function() {
-		$(".paperback_front").removeClass("book_closed").addClass("book_opened");
-	});
-
-	$(".book_image").bind("mouseleave toucheleave",function() {
-		pages.each(function(){
-			$(this).removeClass("book_flip");
-		});
-		$(".paperback_front").removeClass("book_opened").addClass("book_closed");
-	});
+	$(".book_image").hover(
+		function() {
+			$(".paperback_front").removeClass("book_closed").addClass("book_opened");
+		},
+		function() {
+			pages.each(function(){
+				$(this).removeClass("book_flip");
+			});
+			$(".paperback_front").removeClass("book_opened").addClass("book_closed");
+		}
+	);
 </script>
 
 
