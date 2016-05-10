@@ -381,7 +381,7 @@ figcaption p {
 }
 
 /* Media Queries */
-@media screen and (max-width: 1000000px) {
+@media screen and (max-width: 37.8125em) {
 	.align > li {
 		width: 100%;
 		min-height: 440px;
