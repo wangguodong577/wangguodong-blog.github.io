@@ -254,46 +254,84 @@ Table of Contents
 	transition-timing-function: ease;
 }
 
-.ruled_paper li:nth-child(1) {
-	-webkit-transition-duration: 0.6s;
-	-moz-transition-duration: 0.6s;
-	transition-duration: 0.6s;
-}
+/*.ruled_paper li:nth-child(1) {*/
+	/*-webkit-transition-duration: 0.6s;*/
+	/*-moz-transition-duration: 0.6s;*/
+	/*transition-duration: 0.6s;*/
+/*}*/
 
-.ruled_paper li:nth-child(2) {
-	-webkit-transition-duration: 0.6s;
-	-moz-transition-duration: 0.6s;
-	transition-duration: 0.6s;
-}
+/*.ruled_paper li:nth-child(2) {*/
+	/*-webkit-transition-duration: 0.6s;*/
+	/*-moz-transition-duration: 0.6s;*/
+	/*transition-duration: 0.6s;*/
+/*}*/
 
 /*
 	5. events
 */
 
-.book:hover > .paperback_front {
+/*.book:hover > .paperback_front {*/
+	/*-webkit-transform: rotateY(-120deg) translateZ(0px);*/
+	/*-moz-transform: rotateY(-120deg) translateZ(0px);*/
+	/*transform: rotateY(-120deg) translateZ(0px);*/
+	/*z-index: 0;*/
+/*}*/
+
+/*.book:hover > .ruled_paper li:nth-child(1) {*/
+	/*-webkit-transform: rotateY(-30deg);*/
+	/*-moz-transform: rotateY(-30deg);*/
+	/*transform: rotateY(-30deg);*/
+	/*-webkit-transition-duration: 1.5s;*/
+	/*-moz-transition-duration: 1.5s;*/
+	/*transition-duration: 1.5s;*/
+/*}*/
+
+
+/*.book:hover > .ruled_paper li:nth-child(2){*/
+	/*-webkit-transform: rotateY(-100deg);*/
+	/*-moz-transform: rotateY(-100deg);*/
+	/*transform: rotateY(-100deg);*/
+	/*-webkit-transition-duration: 1.8s;*/
+	/*-moz-transition-duration: 1.8s;*/
+	/*transition-duration: 1.8s;*/
+/*}*/
+
+.book_closed {
+	-webkit-transform: rotateY(-38deg) translateZ(0px);
+	-moz-transform: rotateY(-38deg) translateZ(0px);
+	transform: rotateY(-38deg) translateZ(0px);
+	-webkit-transition-duration: 1.8s !important;
+	-moz-transition-duration: 1.8s !important;
+	transition-duration: 1.8s !important;
+	z-index: 100;
+}
+
+.book_opened {
 	-webkit-transform: rotateY(-120deg) translateZ(0px);
 	-moz-transform: rotateY(-120deg) translateZ(0px);
 	transform: rotateY(-120deg) translateZ(0px);
+	-webkit-transition-duration: 1.5s !important;
+	-moz-transition-duration: 1.5s !important;
+	transition-duration: 1.5s !important;
 	z-index: 0;
 }
 
-.book:hover > .ruled_paper li:nth-child(1) {
-	-webkit-transform: rotateY(-30deg);
-	-moz-transform: rotateY(-30deg);
-	transform: rotateY(-30deg);
-	-webkit-transition-duration: 1.5s;
-	-moz-transition-duration: 1.5s;
-	transition-duration: 1.5s;
+.book_un_flip {
+	-webkit-transform: rotateY(-30deg) !important;
+	-moz-transform: rotateY(-30deg) !important;
+	transform: rotateY(-30deg) !important;
+	-webkit-transition-duration: 1.5s !important;
+	-moz-transition-duration: 1.5s !important;
+	transition-duration: 1.5s !important;
 }
 
-
-.book:hover > .ruled_paper li:nth-child(2){
-	-webkit-transform: rotateY(-100deg);
-	-moz-transform: rotateY(-100deg);
-	transform: rotateY(-100deg);
-	-webkit-transition-duration: 1.8s;
-	-moz-transition-duration: 1.8s;
-	transition-duration: 1.8s;
+.book_flip {
+	-webkit-transform: rotateY(-115deg) !important;
+	-moz-transform: rotateY(-115deg) !important;
+	transform: rotateY(-115deg) !important;
+	-webkit-transition-duration: 1.5s !important;
+	-moz-transition-duration: 1.5s !important;
+	transition-duration: 1.5s !important;
 }
 
 /* Cover colors */

@@ -26,10 +26,16 @@
 
 							<ul class="ruled_paper">
 								<li>
-									<a class="btn" href="subject/java.html">Java</a>
-									<a class="btn" href="subject/linux.html">linux</a>
 								</li>
 								<li>
+								</li>
+								<li>
+								</li>
+								<li>
+								</li>
+								<li>
+									<a class="btn" href="subject/java.html">Java</a>
+									<a class="btn" href="subject/linux.html">linux</a>
 								</li>
 							</ul>
 
@@ -47,4 +53,29 @@
 		</div>
 </body>
 </html>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script>
+	var pages = $(".ruled_paper li");
+	pages.each(function(){
+		$(this).addClass("book_un_flip");
+		$(this).bind("click", function() {
+			$(this).addClass("book_flip");
+		})
+	});
+	$(".paperback_front").addClass("book_closed");
+
+	$(".book").bind("mouseenter",function() {
+		$(".paperback_front").removeClass("book_closed").addClass("book_opened");
+	});
+
+	$(".book").bind("mouseleave",function() {
+		pages.each(function(){
+			$(this).removeClass("book_flip");
+		});
+		$(".paperback_front").removeClass("book_opened").addClass("book_closed");
+	});
+</script>
+
 
