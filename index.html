@@ -16,31 +16,32 @@
 				<ul class="align">
 					<li>
 						<figure class="book">
+							<div class="book_image">
+								<ul class="paperback_front">
+									<li>
+										<span class="ribbon">Tech</span>
+									</li>
+									<li></li>
+								</ul>
 
-							<ul class="paperback_front">
-								<li>
-									<span class="ribbon">Tech</span>
-								</li>
-								<li></li>
-							</ul>
+								<ul class="ruled_paper">
+									<li>
+									</li>
+									<li>
+									</li>
+									<li>
+									</li>
+									<li>
+									</li>
+									<li>
+										<a class="btn" href="subject/java.html">Java</a>
+										<a class="btn" href="subject/linux.html">linux</a>
+									</li>
+								</ul>
 
-							<ul class="ruled_paper">
-								<li>
-								</li>
-								<li>
-								</li>
-								<li>
-								</li>
-								<li>
-								</li>
-								<li>
-									<a class="btn" href="subject/java.html">Java</a>
-									<a class="btn" href="subject/linux.html">linux</a>
-								</li>
-							</ul>
-
-							<ul class="paperback_back">
-							</ul>
+								<ul class="paperback_back">
+								</ul>
+							</div>
 							<figcaption>
 								<h1>Enterprise Java</h1>
 								<span>By 王国栋</span>
@@ -66,11 +67,11 @@
 	});
 	$(".paperback_front").addClass("book_closed");
 
-	$(".book").bind("mouseenter touchend",function() {
+	$(".book_image").bind("mouseenter touchend",function() {
 		$(".paperback_front").removeClass("book_closed").addClass("book_opened");
 	});
 
-	$(".book").bind("mouseleave toucheleave",function() {
+	$(".book_image").bind("mouseleave toucheleave",function() {
 		pages.each(function(){
 			$(this).removeClass("book_flip");
 		});
