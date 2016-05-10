@@ -66,11 +66,11 @@
 	});
 	$(".paperback_front").addClass("book_closed");
 
-	$(".book").bind("mouseenter",function() {
+	$(".book").bind("mouseenter touchend",function() {
 		$(".paperback_front").removeClass("book_closed").addClass("book_opened");
 	});
 
-	$(".book").bind("mouseleave",function() {
+	$(".book").bind("mouseleave toucheleave",function() {
 		pages.each(function(){
 			$(this).removeClass("book_flip");
 		});
